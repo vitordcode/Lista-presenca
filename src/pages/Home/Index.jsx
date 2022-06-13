@@ -7,6 +7,7 @@ import { Card } from '../../components/Card';
 export function Home() {
   const [studentName, setStudentName] = useState();
   const [students, setStudents] = useState([])
+  const [user, setUser] = useState({ name: '', avatar: '' })
 
   function handleAddStudent() {
     const newStudent = {
@@ -22,7 +23,17 @@ export function Home() {
   }
 
   useEffect(() => {
-    
+    async function fetchData() {
+      const response = await fetch('https://api.github.com/users/vitordcode');
+      const data = await response.json();
+
+      setUser({
+        name: data.name,
+        avatar: data.avatar_url,
+      })
+    }
+
+    fetchData();      
   }, [])
 
   return (
@@ -30,8 +41,8 @@ export function Home() {
       <header>
         <h1>Lista de Presenca</h1>
         <div>
-          <strong>Vitor</strong>
-          <img src="https://github.com/vitordcode.png" alt="Foto de Perfil" />
+          <strong>{user.name}</strong>
+          <img src={user.avatar} alt="Foto de Perfil" />
         </div>
       </header>
 
