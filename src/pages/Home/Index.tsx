@@ -2,12 +2,22 @@ import React, { useState, useEffect } from 'react';
 
 import './styles.css';
 
-import { Card } from '../../components/Card';
+import { Card, CardProps } from '../../components/Card';
+
+type ProfileResponse = {
+  name: string;
+  avatar_url: string;
+}
+
+type User = {
+  name: string;
+  avatar: string;
+}
 
 export function Home() {
-  const [studentName, setStudentName] = useState();
-  const [students, setStudents] = useState([])
-  const [user, setUser] = useState({ name: '', avatar: '' })
+  const [studentName, setStudentName] = useState<any>();
+  const [students, setStudents] = useState<CardProps[]>([])
+  const [user, setUser] = useState<User>({} as User)
 
   function handleAddStudent() {
     const newStudent = {
@@ -25,7 +35,7 @@ export function Home() {
   useEffect(() => {
     async function fetchData() {
       const response = await fetch('https://api.github.com/users/vitordcode');
-      const data = await response.json();
+      const data = await response.json() as ProfileResponse;
 
       setUser({
         name: data.name,
@@ -58,7 +68,7 @@ export function Home() {
       {
         students.map(student => (
           <Card 
-          key={student.time}
+            key={student.time}
             name={student.name} 
             time={student.time}
           />
