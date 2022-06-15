@@ -14,7 +14,7 @@ type User = {
   avatar: string;
 }
 
-export function Home() {
+function Home() {
   const [studentName, setStudentName] = useState<any>();
   const [students, setStudents] = useState<CardProps[]>([])
   const [user, setUser] = useState<User>({} as User)
@@ -77,3 +77,5 @@ export function Home() {
     </div>
   )
 }
+
+export default Home;
